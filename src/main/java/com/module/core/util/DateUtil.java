@@ -1,4 +1,4 @@
-package com.example.modulecore.util;
+package com.module.core.util;
 
 import java.time.LocalDateTime;
 

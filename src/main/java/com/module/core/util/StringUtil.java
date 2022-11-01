@@ -1,4 +1,4 @@
-package com.example.modulecore.util;
+package com.module.core.util;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -23,7 +23,7 @@ public class StringUtil {
         return SHA256;
     }
 
-    public static void test(){
+    public void setSha(){
         System.out.println("Adetstset");
     }
 }
