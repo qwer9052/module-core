@@ -16,7 +16,7 @@ public class LogTimeAspect {
 
     Logger logger = LoggerFactory.getLogger(LogTimeAspect.class);
 
-    @Pointcut("@annotation(com.module.core.annotation.JwtAuth)")
+    @Pointcut("@annotation(com.module.core.annotation.LogExecutionTime)")
     private void LogTimeAspect(){}
 
     @Around("LogTimeAspect()")
