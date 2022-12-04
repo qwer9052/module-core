@@ -56,7 +56,7 @@ public class JwtProvider {
 
     private void validationAuthorizationHeader(String header) {
         if (header == null || !header.startsWith("Bearer ")) {
-            throw new IllegalArgumentException();
+            throw new JwtException("Jwt 인증 형식이 맞지 않습니다.");
         }
     }
 

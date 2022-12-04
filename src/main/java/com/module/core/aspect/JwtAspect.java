@@ -32,6 +32,7 @@ public class JwtAspect {
     private final HttpServletRequest httpServletRequest;
     private final JwtProvider jwtProvider;
 
+
     @Pointcut("@annotation(com.module.core.annotation.JwtAuth)")
     private void JwtAuth() {
     }
@@ -63,6 +64,7 @@ public class JwtAspect {
         String authorization = httpServletRequest.getHeader("Authorization");
         Claims claims = jwtProvider.parseJwtToken(authorization);
         Long userId = Long.valueOf(String.valueOf(claims.get("userId")));
+        logger.info("[Authorization Jwt] : " + authorization);
         return userId;
     }
 }
