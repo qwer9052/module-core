@@ -23,7 +23,4 @@ public class StringUtil {
         return SHA256;
     }
 
-    public void setSha(){
-        System.out.println("Adetstset");
-    }
 }

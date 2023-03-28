@@ -17,10 +17,11 @@ public class LogTimeAspect {
     Logger logger = LoggerFactory.getLogger(LogTimeAspect.class);
 
     @Pointcut("@annotation(com.module.core.annotation.LogExecutionTime)")
-    private void LogTimeAspect(){}
+    private void LogTimeAspect() {
+    }
 
     @Around("LogTimeAspect()")
-    public Object AssumeExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object AssumeExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();

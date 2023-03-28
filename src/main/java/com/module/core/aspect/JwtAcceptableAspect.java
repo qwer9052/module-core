@@ -2,6 +2,7 @@ package com.module.core.aspect;
 
 import com.module.core.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,18 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @Aspect
 @RequiredArgsConstructor
-public class JwtAspect {
+public class JwtAcceptableAspect {
 
-    Logger logger = LoggerFactory.getLogger(JwtAspect.class);
+    Logger logger = LoggerFactory.getLogger(JwtAcceptableAspect.class);
     private final HttpServletRequest httpServletRequest;
     private final JwtProvider jwtProvider;
 
 
-    @Pointcut("@annotation(com.module.core.annotation.JwtAuth)")
-    private void JwtAuth() {
+    @Pointcut("@annotation(com.module.core.annotation.JwtAcceptableAuth)")
+    private void JwtAcceptableAspect() {
     }
 
-    @Around("JwtAuth()")
+    @Around("JwtAcceptableAspect()")
     public Object jwt(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("[JwtAspect] logging...");
         Integer row = getName(joinPoint, "userId");
@@ -52,9 +53,13 @@ public class JwtAspect {
 
     private Long getJwtAuthUserId(){
         String authorization = httpServletRequest.getHeader("Authorization");
-        Claims claims = jwtProvider.parseJwtToken(authorization);
-        Long userId = Long.valueOf(String.valueOf(claims.get("userId")));
-        logger.info("[Authorization Jwt] : " + authorization);
-        return userId;
+        try {
+            Claims claims = jwtProvider.parseJwtToken(authorization);
+            Long userId = Long.valueOf(String.valueOf(claims.get("userId")));
+            logger.info("[Authorization Jwt] : " + authorization);
+            return userId;
+        }catch (JwtException e){
+            return null;
+        }
     }
 }
